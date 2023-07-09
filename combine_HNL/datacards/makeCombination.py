@@ -71,9 +71,6 @@ class DatacardModifier(object):
         self.scaleDCfactor = opt.scaleDCfactor
 
     def getRateList(self, datacard_name):
-      '''
-        Get the list of the signal and background rates from the initial datacard
-      '''
       proc_lines = []
       rate_line = ''
       f = open(datacard_name)
@@ -101,7 +98,6 @@ class DatacardModifier(object):
       if len(rate_list) == len(proc_list):
           print "Initial rate list"
           print rate_list
-#          print proc_list
           return rate_list, proc_list
       else: 
           print ("[ERROR]The length of the rate and process array didn't match")
@@ -155,26 +151,20 @@ class DatacardModifier(object):
   
 if __name__ == "__main__":
   (opt,args) = get_options()
-  # Create jobs directory
-#  masses=[1,2,3,4,5,6,7,8,10,12,14,16,18,20] #use integers to not mess up with file names with "." or "p"
-  masses=[2] #use integers to not mess up with file names with "." or "p"
-#  ctaus=["0.00001","0.00010","0.00100","0.01000","0.10000","1","10","100","1000",10000]
-#  ctaus=["0.00001","0.00010","0.00100","0.01000","0.10000"]
-  ctaus=["10"]
+  masses=[1,2,3,4,5,6,7,8,10,12,14,16,18,20] #use integers to not mess up with file names with "." or "p"
+#  masses=[2] #use integers to not mess up with file names with "." or "p"
+  ctaus=["0.00001","0.00010","0.00100","0.01000","0.10000","1","10","100","1000",10000]
+#  ctaus=["10"]
 
   for mass in masses:
       for ctau in ctaus:
+          # Create jobs directory
           if not os.path.isdir("./Models_mHNL%i_ctau_%s/"%(mass, ctau)): os.system("mkdir ./Models_mHNL%i_ctau_%s/"%(mass, ctau))
           if not os.path.isdir("./Models_mHNL%i_ctau_%s/jobs"%(mass, ctau)): os.system("mkdir ./Models_mHNL%i_ctau_%s/jobs"%(mass, ctau))
-#          if not os.path.isdir("./Models_%s/toys/jobs"%(opt.ext)): os.system("mkdir ./Models_%s/toys/jobs"%(opt.ext))
           if float(ctau) >= 1:
               print (ctau)
 #              directories = ['../datacards/EXO-20-009/AllPoints_OldSystematics/DIRAC_cards_ctau_new/','EXO-21-013/cards/combined/coupling_12/HNL_dirac_all_ctau%s_massHNL%ip0/'%(ctau,mass), '../datacards/EXO-22-017/muon/','../datacards/EXO-22-019/23_06_05/']
 #              filenames = ['HNL_muonDiracType_mHNL%ip0_pl%s.00000_comb.txt'%(mass,ctau),'modified_out_combined.txt','HNL_muonDiracType_mHNL%ip0_pl%s_comb.txt'%(mass,ctau), 'HNL_muonType_mHNL_%ip0_ctau_%sp0_comb.txt'%(mass,ctau)]
-#              directories = ['../datacards/EXO-20-009/AllPoints_OldSystematics/DIRAC_cards_ctau_new/','../datacards/EXO-22-017/muon/','../datacards/EXO-22-019/23_06_05/']
-#              filenames = ['HNL_muonDiracType_mHNL%ip0_pl%s.00000_comb.txt'%(mass,ctau),'HNL_muonDiracType_mHNL%ip0_pl%s_comb.txt'%(mass,ctau),'HNL_muonType_mHNL_%ip0_ctau_%sp0_comb.txt'%(mass,ctau)]
-#              directories = ['../datacards/EXO-20-009/AllPoints_OldSystematics/DIRAC_cards_ctau_new/']
-#              filenames = ['HNL_muonDiracType_mHNL%ip0_pl%s.00000_comb.txt'%(mass,ctau)]
 #              directories = ['../datacards/EXO-22-017/muon/','../datacards/EXO-22-019/23_06_05/']
 #              filenames = ['HNL_muonDiracType_mHNL%ip0_pl%s_comb.txt'%(mass,ctau), 'HNL_muonType_mHNL_%ip0_ctau_%sp0_comb.txt'%(mass,ctau)]
               directories = ['../datacards/EXO-22-019/23_06_05/']
@@ -186,24 +176,16 @@ if __name__ == "__main__":
               ctau_parts = ctau.split(".")
 #              directories = ['../datacards/EXO-20-009/AllPoints_OldSystematics/DIRAC_cards_ctau_new/','EXO-21-013/cards/combined/coupling_12/HNL_dirac_all_ctau0p%s_massHNL%ip0/'%(ctau_parts[1],mass), '../datacards/EXO-22-017/muon/','../datacards/EXO-22-019/23_06_05/']
 #              filenames = ['HNL_muonDiracType_mHNL%ip0_pl0.%s_comb.txt'%(mass, ctau_parts[1]),'modified_out_combined.txt','HNL_muonDiracType_mHNL%ip0_pl0p%s_comb.txt'%(mass, ctau_parts[1]), 'HNL_muonType_mHNL_%ip0_ctau_0p%s_comb.txt'%(mass, ctau_parts[1])]
-#              directories = ['../datacards/EXO-20-009/AllPoints_OldSystematics/DIRAC_cards_ctau_new/','../datacards/EXO-22-017/muon/','../datacards/EXO-22-019/23_06_05/']
-#              filenames = ['HNL_muonDiracType_mHNL%ip0_pl0.%s_comb.txt'%(mass, ctau_parts[1]),'HNL_muonDiracType_mHNL%ip0_pl0p%s_comb.txt'%(mass, ctau_parts[1]), 'HNL_muonType_mHNL_%ip0_ctau_0p%s_comb.txt'%(mass, ctau_parts[1])]
-#              directories = ['../datacards/EXO-20-009/AllPoints_OldSystematics/DIRAC_cards_ctau_new/']
-#              filenames = ['HNL_muonDiracType_mHNL%ip0_pl0.%s_comb.txt'%(mass, ctau_parts[1])]
 #              directories = ['../datacards/EXO-22-017/muon/','../datacards/EXO-22-019/23_06_05/']
 #              filenames = ['HNL_muonDiracType_mHNL%ip0_pl0p%s_comb.txt'%(mass, ctau_parts[1]), 'HNL_muonType_mHNL_%ip0_ctau_0p%s_comb.txt'%(mass, ctau_parts[1])]
               directories = ['../datacards/EXO-22-019/23_06_05/']
               filenames = ['HNL_muonType_mHNL_%ip0_ctau_0p%s_comb.txt'%(mass, ctau_parts[1])]
               str_to_modify_ = 'cards/combined/coupling_12/HNL_dirac_all_ctau0p%s_massHNL%ip0/'%(ctau_parts[1],mass)
 #          names = ['EXO-20-009','EXO-21-013','EXO-22-017','EXO-22-019']
-#          names = ['EXO-20-009','EXO-22-017','EXO-22-019']
-#          names = ['EXO-22-017','EXO-22-019']
           names = ['EXO-22-019']
-#          names = ['EXO-20-009']
           all_valid_files = ""
           valid_point = False
           for directory, filename, name in zip(directories, filenames, names):
-              #print(directory, filename)
               file_path_ = search_and_use_file(directory, filename) 
               if file_path_ is not None:
                   all_valid_files += ' ' + name + '=' + file_path_
@@ -213,14 +195,10 @@ if __name__ == "__main__":
               print (colored("#merging datacard for mass=%i and ctau=%s"%(mass, ctau),'green'))
               print ("combineCards.py\t" + all_valid_files + "  > HNL_datacard_mHNL%i_ctau_%s_combined.txt"%(mass, ctau))
               command = "combineCards.py\t" + all_valid_files + "  > HNL_datacard_mHNL%i_ctau_%s_combined.txt"%(mass, ctau)
-#combine cards
-              run_command(command)
-#If any modification required in the combined .txt file
-              edit_file(comb_datacard_name, str_to_modify_)
-#To remove lnN, shape and gmN Syst. from the datacard
-              remove_syst(comb_datacard_name)
+              run_command(command) #combine cards
+              edit_file(comb_datacard_name, str_to_modify_) #If any modification required in the combined .txt file
+              remove_syst(comb_datacard_name) #To remove lnN, shape and gmN Syst. from the datacard
               parts = comb_datacard_name.split('.')
-#              os.system("text2workspace.py " + parts[0] +"_StatOnly." + parts[1])
               txtToWS_cmd = "text2workspace.py " + "HNL_datacard_mHNL%i_ctau_%s_combined.txt"%(mass, ctau)
               limit_cmd = "combine HNL_datacard_mHNL%i_ctau_%s_combined.root -M AsymptoticLimits --redefineSignalPOIs r --trackParameters r --setParameters norm=1 --freezeParameter norm --saveWorkspace --cminDefaultMinimizerStrategy 0 --X-rtd MINIMIZER_freezeDisassociatedParams --X-rtd MINIMIZER_multiMin_hideConstants --X-rtd MINIMIZER_multiMin_maskConstraints --X-rtd MINIMIZER_multiMin_maskChannels=2 -n mHNL_%i_ctau-%s"%(mass, ctau, mass, ctau)
               if opt.dryRun:
@@ -238,7 +216,6 @@ if __name__ == "__main__":
                             DatacardModifier(opt=opt).process(comb_datacard_name)
                             os.system(txtToWS_cmd)
                             os.system(limit_cmd)
-#                            filename = "./higgsCombinemHNL_%i_ctau-%s.AsymptoticLimits.mH120.root"%(mass, ctau)
                             if os.path.exists(filename):
                                 file = ROOT.TFile.Open(filename, "UPDATE")
                                 tree = file.Get("limit")
