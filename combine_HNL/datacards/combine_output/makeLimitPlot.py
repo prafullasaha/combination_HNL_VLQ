@@ -67,7 +67,4 @@ if __name__ == "__main__":
     canvas.RedrawAxis()
     canvas.SaveAs("/eos/user/p/prsaha/www/vlq_review/combined_limit_HNL_"+ version +".png")
     canvas.SaveAs("/eos/user/p/prsaha/www/vlq_review/combined_limit_HNL_"+ version +".pdf")
-#         file.Close()
-#     ROOT.gROOT.SetBatch(True)  # Enable batch mode for running without graphics
-#    make_2d_histogram()
 
